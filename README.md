@@ -1,7 +1,8 @@
 # Aws Chaos Beaver #
 
 # Overview #
-* Simulate service/process failures to validate stack reliability 
+* Simulate service/process failures to validate stack reliability
+* The end-point is to stop service or to kill a process to verify how overall application stack survives partial failures
 * Execute arbitrary shell commands on ec2 instances using [SSM agent](http://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent.html)
 
 # Components #
