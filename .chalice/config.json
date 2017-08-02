@@ -1,9 +1,11 @@
 {
   "stages": {
-    "dev": {
-      "api_gateway_stage": "dev"
+    "poc": {
+      "api_gateway_stage": "poc"
     }
   }, 
   "version": "2.0", 
-  "app_name": "aws-chaos-beaver"
+  "app_name": "smith-poc-chaos-beaver",
+  "manage_iam_role":false,
+  "iam_role_arn":"arn:aws:iam::811322200214:role/smith-poc-chaos-beaver-role"
 }

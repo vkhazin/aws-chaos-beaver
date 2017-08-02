@@ -1,0 +1,12 @@
+{
+  "dev": {
+    "region": "us-east-2",
+    "api_handler_name": "smith-poc-chaos-beaver-dev",
+    "api_handler_arn": "arn:aws:lambda:us-east-2:811322200214:function:smith-poc-chaos-beaver-dev",
+    "rest_api_id": "5i29tx9sqe",
+    "lambda_functions": {},
+    "chalice_version": "1.0.0",
+    "api_gateway_stage": "dev",
+    "backend": "api"
+  }
+}
