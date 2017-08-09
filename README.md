@@ -14,6 +14,13 @@
 * [Install ssm agent on ec2 instances](https://gist.github.com/vkhazin/100c717b9780fc8f7eaf444d4d6b339f)
 * Add AmazonEC2RoleforSSM policy to ec2 instances role
 * Add AmazonSSMFullAccess policy to lambda execution role
+* Lambda function shall be deployed in the same region where the ec2 instances are, otherwise following error may pop-up:
+```
+{
+  "Message": "ChaliceViewError: An error occurred (InvalidInstanceId) when calling the SendCommand operation: ",
+  "Code": "ChaliceViewError"
+}
+```
 
 # End-Points #
 
