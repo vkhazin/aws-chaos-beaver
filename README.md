@@ -10,6 +10,11 @@
 * The Easiest way to build end-points yet using [AWS Chalice](http://chalice.readthedocs.io/en/latest/) and python
 * CloudWatch logs and Api Gateway Logging for troubleshooting
 
+# Configuration #
+* [Install ssm agent on ec2 instances](https://gist.github.com/vkhazin/100c717b9780fc8f7eaf444d4d6b339f)
+* Add AmazonEC2RoleforSSM policy to ec2 instances role
+* Add AmazonSSMFullAccess policy to lambda execution role
+
 # End-Points #
 
 ## [Echo](./docs/echo.md) ##
