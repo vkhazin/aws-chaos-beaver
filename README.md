@@ -10,49 +10,19 @@
 * The Easiest way to build end-points yet using [AWS Chalice](http://chalice.readthedocs.io/en/latest/) and python
 * CloudWatch logs and Api Gateway Logging for troubleshooting
 
-# End-Point #
+# End-Points #
 
-## Request ##
-Header: {'x-api-key': '7cc6f8fa-248c-4685-a2ba-7fe47e18fc9c'}  
-POST /  
-```
-Body: [
-  {
-    "id": "i-0b314f9c31a99621c",
-    "serviceName": "redis"
-  },
-  {
-    "id": "i-0b314f9c31a99621c",
-    "processName": "nodejs"
-  },
-  {
-    "id": "i-0b314f9c31a99621c",
-    "port": "3000"
-  },  
-]
-```
+## [Echo](./doc/echo.md) ##
 
-## Response - Success ##
-```
-Body: {
-  "Request": [
-    {
-      "id": "i-0b314f9c31a99621c",
-      "serviceName": "redis"
-    },
-    {
-      "id": "i-0b314f9c31a99621c",
-      "processName": "nodejs"
-    },
-    {
-      "id": "i-0b314f9c31a99621c",
-      "port": "3000"
-    },  
-  ],
-  'executionTime': 300
-}
-```
-# Testing #
+## [Stop Service](./doc/stop-service.md) ##
+
+## [Kill Process By Name](./doc/kill-process-by-name.md) ##
+
+## [Kill Process By Port Number](./doc/kill-process-by-port.md) ##
+
+## [Kill Process By Name and Port](./doc/kill-process-by-name-port.md) ##
+
+# Unit Testing #
 
 * ./test folder contains unit test using python unittest
 * running locally: ```chalice local```
