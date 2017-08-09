@@ -12,7 +12,7 @@
 
 # End-Points #
 
-## [Echo](./doc/echo.md) ##
+## [Echo](./docs/echo.md) ##
 
 ## [Stop Service](./docs/stop-service.md) ##
 
