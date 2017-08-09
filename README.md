@@ -18,7 +18,7 @@
 
 ## [Kill Process By Name](./docs/kill-process-by-name.md) ##
 
-## [Kill Process By Port Number](./docs/kill-process-by-port.md) ##
+## [Kill Process By Port Number](./docs/kill-service-by-port.md) ##
 
 ## [Kill Process By Name and Port](./docs/kill-process-by-name-port.md) ##
 

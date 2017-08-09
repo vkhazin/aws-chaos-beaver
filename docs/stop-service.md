@@ -8,7 +8,7 @@ Body:
   {
     "id": "i-019ebfaf92631c228",
     "serviceName": "nodejs-restart"
-  }    
+  }
 ]
 ```
 
