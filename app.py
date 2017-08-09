@@ -1,9 +1,12 @@
 from chalicelib import core
 import datetime
 from chalice import Chalice
+from chalice import BadRequestError
+from chalice import ChaliceViewError
+
 appName = 'smith-poc-chaos-beaver'
 app = Chalice(app_name=appName)
-app.debug = True
+# app.debug = True
 
 @app.route('/')
 def echo():
@@ -26,6 +29,9 @@ def killServiceOrProcess():
       'request': body,
       'executionTime': timeTaken.microseconds / 1000
     }
-  except Exception as ex:
+  except BadRequestError as ex:
     app.log.error(ex)
     raise
+  except Exception as ex:
+    app.log.error(ex)
+    raise ChaliceViewError(str(ex))
