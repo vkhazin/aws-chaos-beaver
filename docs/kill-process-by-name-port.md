@@ -22,7 +22,7 @@ Body:
   "request": [
     {
         "processName": "node",
-        "processName": "node",
+        "portNumber": 3000,
         "id": "i-0b314f9c31a99621c"
     }
   ]
