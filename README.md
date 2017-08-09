@@ -14,13 +14,13 @@
 
 ## [Echo](./doc/echo.md) ##
 
-## [Stop Service](./doc/stop-service.md) ##
+## [Stop Service](./docs/stop-service.md) ##
 
-## [Kill Process By Name](./doc/kill-process-by-name.md) ##
+## [Kill Process By Name](./docs/kill-process-by-name.md) ##
 
-## [Kill Process By Port Number](./doc/kill-process-by-port.md) ##
+## [Kill Process By Port Number](./docs/kill-process-by-port.md) ##
 
-## [Kill Process By Name and Port](./doc/kill-process-by-name-port.md) ##
+## [Kill Process By Name and Port](./docs/kill-process-by-name-port.md) ##
 
 # Unit Testing #
 
