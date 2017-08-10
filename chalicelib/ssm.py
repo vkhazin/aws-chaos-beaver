@@ -1,14 +1,19 @@
 import os
 import boto3
+from enum import Enum
 
 client = boto3.client(
     'ssm'
 )
 
-def sendCommand(instanceIds, command):
+class ShellType(Enum):
+  Linux   = 'AWS-RunShellScript',
+  Win     = 'AWS-RunPowerShellScript'
+
+def sendCommand(shellType, instanceIds, command):
   response = client.send_command(
       InstanceIds=instanceIds,
-      DocumentName='AWS-RunShellScript',
+      DocumentName=shellType.value,
       TimeoutSeconds=60,
       Parameters={
           'commands': [
@@ -18,27 +23,53 @@ def sendCommand(instanceIds, command):
   )
   return response
 
-def restartService(instanceIds, serviceName):
-  command = 'service {serviceName} restart'.format(serviceName=serviceName)
-  return sendCommand(instanceIds, command)
+def restartService(shellType, instanceIds, serviceName):
+  if (shellType == ShellType.Linux):
+    command = 'service {serviceName} restart'.format(serviceName=serviceName)
+  elif (shellType == ShellType.Win):
+    command = 'Restart-Service  {serviceName} -force'.format(serviceName=serviceName)
+  else:
+    raise Exception('Unknown shell type')
+  return sendCommand(shellType, instanceIds, command)
 
-def stopService(instanceIds, serviceName):
-  command = 'service {serviceName} stop'.format(serviceName=serviceName)
-  return sendCommand(instanceIds, command)
+def stopService(shellType, instanceIds, serviceName):  
+  if (shellType == ShellType.Linux):
+    command = 'service {serviceName} stop'.format(serviceName=serviceName)
+  elif (shellType == ShellType.Win):
+    command = 'Stop-Service  {serviceName} -force'.format(serviceName=serviceName)
+  else:
+    raise Exception('Unknown shell type')
+  
+  return sendCommand(shellType, instanceIds, command)
 
-def killProcessByNameAndPortNumber(instanceIds, processName, portNumber):
-  # ss documentation: http://man7.org/linux/man-pages/man8/ss.8.html
-  # ps -p $(ss -lpn 'sport = :3000'  | grep '(?<=pid=)(\d*)(?=,)' -Po) | grep 'node'
-  # kill $(ps -p $(ss -lpn 'sport = :3000'  | grep '(?<=pid=)(\d*)(?=,)' -Po) | grep 'node' | awk '{print $1}')
-  #command = "kill -9 $(ss -lpn 'sport = :{portNumber}' | grep '(?<=pid=)(\d*)(?=,)' -Po)".format(portNumber=portNumber)
-  command = "kill -9 $(ps -p $(ss -lpn 'sport = :{portNumber}'  | grep '(?<=pid=)(\d*)(?=,)' -Po) | grep '{processName}' | awk '{{print $1}}')" \
-            .format(portNumber=portNumber, processName=processName)
-  return sendCommand(instanceIds, command)
+def killProcessByNameAndPortNumber(shellType, instanceIds, processName, portNumber):
+  if (shellType == ShellType.Linux):
+    # ss documentation: http://man7.org/linux/man-pages/man8/ss.8.html
+    command = "kill -9 $(ps -p $(ss -lpn 'sport = :{portNumber}'  | grep '(?<=pid=)(\d*)(?=,)' -Po) | grep '{processName}' | awk '{{print $1}}')" \
+              .format(portNumber=portNumber, processName=processName)
+  elif (shellType == ShellType.Win):
+    raise Exception('Not implemented')
+  else:
+    raise Exception('Unknown shell type')
 
-def killProcessByPortNumber(instanceIds, portNumber):
-  command = "kill -9 $(ss -lpn 'sport = :{portNumber}' | grep '(?<=pid=)(\d*)(?=,)' -Po)".format(portNumber=portNumber)
-  return sendCommand(instanceIds, command)
+  return sendCommand(shellType, instanceIds, command)
 
-def killProcessByName(instanceIds, processName):
-  command = "kill -9 $(pgrep {processName})".format(processName=processName)
-  return sendCommand(instanceIds, command)
+def killProcessByPortNumber(shellType, instanceIds, portNumber):
+  if (shellType == ShellType.Linux):
+   command = "kill -9 $(ss -lpn 'sport = :{portNumber}' | grep '(?<=pid=)(\d*)(?=,)' -Po)".format(portNumber=portNumber)
+  elif (shellType == ShellType.Win):
+    raise Exception('Not implemented')
+  else:
+    raise Exception('Unknown shell type')  
+  
+  return sendCommand(shellType, instanceIds, command)
+
+def killProcessByName(shellType, instanceIds, processName):
+  if (shellType == ShellType.Linux):
+   command = "kill -9 $(pgrep {processName})".format(processName=processName)
+  elif (shellType == ShellType.Win):
+    raise Exception('Not implemented')
+  else:
+    raise Exception('Unknown shell type')  
+  
+  return sendCommand(shellType, instanceIds, command)
