@@ -73,3 +73,14 @@ def killProcessByName(shellType, instanceIds, processName):
     raise Exception('Unknown shell type')  
   
   return sendCommand(shellType, instanceIds, command)
+
+def describeInstances(instanceIds):
+  response = client.describe_instance_information(
+      InstanceInformationFilterList = [
+        {
+            'key': 'InstanceIds',
+            'valueSet': instanceIds
+        },
+      ]
+  )
+  return response['InstanceInformationList']
