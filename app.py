@@ -3,11 +3,17 @@ import datetime
 from chalice import Chalice
 from chalice import BadRequestError
 from chalice import ChaliceViewError
+import json
 
 appName = 'smith-poc-chaos-beaver'
 app = Chalice(app_name=appName)
 # app.debug = True
 
+# Solve datetime json serialization
+def jsonSerializer(val):
+    if isinstance(val, datetime.datetime):
+        return val.__str__()
+      
 @app.route('/')
 def echo():
     return {
@@ -17,6 +23,18 @@ def echo():
       'description': 'Shutdown processes/services on ec2 instances to simulate failures'
     }
 
+@app.route('/instanceInfo/{instanceIds}')
+def describeInstances(instanceIds):
+  try:
+    instanceIds = instanceIds.split(',')
+    result = core.ssmDescribeInstances(instanceIds)
+    result = json.dumps(result, default=jsonSerializer)
+    return result
+  except Exception as ex:
+    app.log.error(ex)
+    print ex
+    raise ChaliceViewError(str(ex))
+    
 @app.route('/', methods=['POST'])
 def killServiceOrProcess():
   try:

@@ -30,3 +30,6 @@ def killServiceOrProcess(item):
   else:
     raise BadRequestError('serviceName, processName, and portNumbers are empty! Sorry, do not know what to kill other than self!')
     
+def ssmDescribeInstances(instanceIds):
+  result = ssm.describeInstances(instanceIds)
+  return result 
