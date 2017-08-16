@@ -3,17 +3,13 @@ import datetime
 from chalice import Chalice
 from chalice import BadRequestError
 from chalice import ChaliceViewError
+from chalicelib import utils
 import json
 
 appName = 'smith-poc-chaos-beaver'
 app = Chalice(app_name=appName)
 # app.debug = True
 
-# Solve datetime json serialization
-def jsonSerializer(val):
-    if isinstance(val, datetime.datetime):
-        return val.__str__()
-      
 @app.route('/')
 def echo():
     return {
@@ -28,7 +24,7 @@ def describeInstances(instanceIds):
   try:
     instanceIds = instanceIds.split(',')
     result = core.ssmDescribeInstances(instanceIds)
-    result = json.dumps(result, default=jsonSerializer)
+    result = json.dumps(result, default=utils.jsonSerializer)
     return result
   except Exception as ex:
     app.log.error(ex)

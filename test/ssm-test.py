@@ -1,12 +1,17 @@
+import json
 import unittest
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from chalicelib import ssm as ssmApi
+from chalicelib import utils
 
 redisOnLinuxInstanceId='i-0c7ac0aa037e4aa82'
-redisOnLinuxServiceName='nodejs-restart'
+
+nodeJsOnLinuxInstanceId='i-0b314f9c31a99621c'
+nodeJsLinuxServiceName='nodejs-restart'
+nodeJsOnLinuxPortNumber=3000
 
 mssqlInstanceId='i-0738d627d80a76421'
 msSqlOnWinServiceName='mssqlserver'
@@ -25,11 +30,16 @@ class ec2Tests(unittest.TestCase):
 #     result = ssmApi.stopService(ssmApi.ShellType.Win, [mssqlInstanceId], msSqlOnWinServiceName)
 #     self.assertIsNotNone(result)    
 
+#   def testDescribeInstances(self):
+#     result = ssmApi.describeInstances([redisOnLinuxInstanceId])
+# #     print result
+#     self.assertGreater(len(result), 0, 'No information found')  
+
   def testDescribeInstances(self):
-    result = ssmApi.describeInstances([redisOnLinuxInstanceId])
-#     print result
-    self.assertGreater(len(result), 0, 'No information found')  
-    
+    result = ssmApi.removePort(ssmApi.ShellType.Linux, [nodeJsOnLinuxInstanceId], nodeJsOnLinuxPortNumber)
+    print(json.dumps(result, default=utils.jsonSerializer))
+#     self.assertGreater(len(result), 0, 'No information found')  
+
 def main():
   unittest.main()
 

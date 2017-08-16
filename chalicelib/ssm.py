@@ -7,7 +7,7 @@ client = boto3.client(
 )
 
 class ShellType(Enum):
-  Linux   = 'AWS-RunShellScript',
+  Linux   = 'AWS-RunShellScript'
   Win     = 'AWS-RunPowerShellScript'
 
 def sendCommand(shellType, instanceIds, command):
@@ -84,3 +84,13 @@ def describeInstances(instanceIds):
       ]
   )
   return response['InstanceInformationList']
+
+def removePort(shellType, instanceIds, portNumber):
+  if (shellType == ShellType.Linux):
+    command = "firewall-cmd --zone=public --remove-port={portNumber}/tcp".format(portNumber=portNumber)  
+  elif (shellType == ShellType.Win):
+    raise Exception('Not implemented')
+  else:
+    raise Exception('Unknown shell type')  
+#   print shellType.value
+  return sendCommand(shellType, instanceIds, command)  

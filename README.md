@@ -21,6 +21,13 @@
   "Code": "ChaliceViewError"
 }
 ```
+* iptables need to be installed on the redhat instances:
+```
+sudo yum update -y && sudo yum install iptables firewalld -y
+```
+* To list active firewall rules: ```sudo firewall-cmd --list-all-zones```
+* To open port permanently: ```sudo firewall-cmd --zone=public --add-port=3000/tcp --permanent```
+* To close port temporarily: ```sudo firewall-cmd --zone=public --remove-port=3000/tcp```
 
 # End-Points #
 
