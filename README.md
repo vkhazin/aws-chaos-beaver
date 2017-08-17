@@ -16,10 +16,7 @@
 * Add AmazonSSMFullAccess policy to lambda execution role
 * Lambda function shall be deployed in the same region where the ec2 instances are, otherwise following error may pop-up:
 ```
-{
-  "Message": "ChaliceViewError: An error occurred (InvalidInstanceId) when calling the SendCommand operation: ",
-  "Code": "ChaliceViewError"
-}
+An error occurred (InvalidInstanceId) when calling the SendCommand operation: "
 ```
 * Firewalld and iptables need to be installed on the redhat instances:
 ```
