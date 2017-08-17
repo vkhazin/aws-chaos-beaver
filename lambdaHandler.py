@@ -1,21 +1,13 @@
-import unittest
-import sys
-import os
-import json
+from lib import utils
+from lib import core as coreApi
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from chalicelib import utils
-from chalicelib import core as coreApi
-
-def handler(payload):
-    method = payload['method'].lower()
-    path = payload['path'].lower()
-    body = payload['body']
+def handler(event, context):
+    method = event['method'].lower()
+    path = event['path'].lower()
+    body = event['body']
     
     if (method == 'delete' and path == '/port'):
-      result = coreApi.removePort(payload['body']);
-      print result
+      result = coreApi.removePort(event['body']);
     elif (method == 'delete' and path == '/service'):
       raise Exception('Not implemented')
     elif (method == 'delete' and path == '/process'):
@@ -23,4 +15,10 @@ def handler(payload):
     elif (method == 'get' and path.startswith('/instance') == True):
       raise Exception('Not implemented')
     else:
-      raise Exception('Unknown method and path combination')
+      result = {
+        'Error': 'Unknown method and path combination'
+      }
+      
+    result = utils.serialize2Json(result)
+    print result
+    return result

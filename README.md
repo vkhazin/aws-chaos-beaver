@@ -21,7 +21,7 @@
   "Code": "ChaliceViewError"
 }
 ```
-* iptables need to be installed on the redhat instances:
+* Firewalld and iptables need to be installed on the redhat instances:
 ```
 sudo yum update -y && sudo yum install iptables firewalld -y
 ```
@@ -29,24 +29,31 @@ sudo yum update -y && sudo yum install iptables firewalld -y
 * To open port permanently: ```sudo firewall-cmd --zone=public --add-port=3000/tcp --permanent```
 * To close port temporarily: ```sudo firewall-cmd --zone=public --remove-port=3000/tcp```
 
-# End-Points #
+# Invocation #
 
-## [Echo](./docs/echo.md) ##
-
-## [Stop Service](./docs/stop-service.md) ##
-
-## [Kill Process By Name](./docs/kill-process-by-name.md) ##
-
-## [Kill Process By Port Number](./docs/kill-service-by-port.md) ##
-
-## [Kill Process By Name and Port](./docs/kill-process-by-name-port.md) ##
+## Remove port from firewalld ##
+```
+aws lambda invoke \
+--invocation-type RequestResponse \
+--function-name smith-poc-chaos-beaver \
+--region us-east-2 \
+--payload '{
+    "method": "delete",
+    "path": "/port",
+    "body": {
+      "instanceId": "i-0b314f9c31a99621c",
+      "osType": "Linux",
+      "portNumber": 3000
+    }
+  }' \
+  $(tty)
+```
 
 # Unit Testing #
 
-* ./test folder contains unit test using python unittest
-* running locally: ```chalice local```
+* ./tests folder contains unit test using python unittest
 
 # Deployment #
 
-* Double check settings in ./.chalice/config.json file
-* From terminal run: ```chalice deploy``` and output will list api-gateway end-point
+* Install awsclie: ```sudo pip install awscli```
+* Deploy to existing aws lambda function: ```./aws/deploy-lambda```
