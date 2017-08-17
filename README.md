@@ -2,12 +2,12 @@
 
 # Overview #
 * Simulate service/process failures to validate stack reliability
-* The end-point is to stop a service or to kill a process to verify how overall application stack survives partial failures
+* Remove port from firewalld to simulate network failure
+* The function is to stop a service, to kill a process, or block incoming traffic to verify how overall application stack survives partial failures
 
 # Components #
-* Api Gateway + Aws Lambda
+* Aws Lambda
 * Boto3 Python Api for [SSM](http://boto3.readthedocs.io/en/latest/reference/services/ssm.html)
-* The Easiest way to build end-points yet using [AWS Chalice](http://chalice.readthedocs.io/en/latest/) and python
 * CloudWatch logs and Api Gateway Logging for troubleshooting
 
 # Configuration #
