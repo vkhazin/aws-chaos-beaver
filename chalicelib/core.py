@@ -3,7 +3,7 @@ from chalice import BadRequestError
 
 def killServiceOrProcess(item):
   item = processInput(item)
-  instanceId = item.get('id')
+  instanceId = item.get('instanceId')
   shellType = item.get('shellType')
   serviceName = item.get('serviceName')
   processName = item.get('processName')
@@ -26,7 +26,7 @@ def ssmDescribeInstances(instanceIds):
 
 def removePort(item):
   item = processInput(item)
-  instanceId = item.get('id')
+  instanceId = item.get('instanceId')
   shellType = item.get('shellType')
   portNumber = item.get('portNumber')
   if (portNumber is None):
@@ -35,7 +35,7 @@ def removePort(item):
   
   
 def processInput(item):
-  instanceId = item.get('id')
+  instanceId = item.get('instanceId')
   if (instanceId is None):
     raise BadRequestError('instanceId is empty')
     
