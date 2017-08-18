@@ -37,12 +37,12 @@ aws lambda invoke \
 --region us-east-2 \
 --payload '{
     "method": "get",
-    "path": "/instance/i-0b314f9c31a99621c,i-0b314f9c31a99621c"
+    "path": "/instance/i-0b314f9c31a99621c,i-09b496a3f86dfac11"
   }' \
   $(tty)
 ```
 
-## Stop Service ##
+## Stop Service - Linux ##
 ```
 aws lambda invoke \
 --invocation-type RequestResponse \
@@ -55,6 +55,23 @@ aws lambda invoke \
       "instanceId": "i-0b314f9c31a99621c",
       "osType": "Linux",
       "processName": "node"
+    }
+  }' \
+  $(tty)
+```
+## Stop Service - Windows ##
+```
+aws lambda invoke \
+--invocation-type RequestResponse \
+--function-name smith-poc-chaos-beaver \
+--region us-east-2 \
+--payload '{
+    "method": "delete",
+    "path": "/service",
+    "body": {
+      "instanceId": "i-09b496a3f86dfac11",
+      "osType": "Win",
+      "serviceName": "mssqlserver"
     }
   }' \
   $(tty)

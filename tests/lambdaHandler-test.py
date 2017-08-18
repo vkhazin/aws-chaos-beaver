@@ -15,77 +15,91 @@ nodeJsInstanceId='i-0b314f9c31a99621c'
 nodeJsServiceName='nodejs-restart'
 processName='node'
 nodeJsPortNumber=3000
+mssqlInstanceId='i-09b496a3f86dfac11'
+mssqlServiceName='mssqlserver'
 
 class ec2Tests(unittest.TestCase):
 
-  def testDescribeInstance(self):
-    payload = {
-      'method': 'GET',
-      'path': '/instance/' + nodeJsInstanceId + ',' + nodeJsInstanceId
-    }
-    result = lambdaHandler.handler(payload, None)
+#   def testDescribeInstance(self):
+#     payload = {
+#       'method': 'GET',
+#       'path': '/instance/' + nodeJsInstanceId + ',' + nodeJsInstanceId
+#     }
+#     result = lambdaHandler.handler(payload, None)
 
-  def testStopService(self):
+#   def testStopServiceLinux(self):
+#     payload = {
+#       'method': 'delete',
+#       'path': '/service',
+#       'body': {
+#         'instanceId': nodeJsInstanceId,
+#         'osType': 'Linux',
+#         'serviceName': nodeJsServiceName
+#       }
+#     }
+#     result = lambdaHandler.handler(payload, None)
+
+#   def testKillProcessByName(self):
+#     payload = {
+#       'method': 'delete',
+#       'path': '/process',
+#       'body': {
+#         'instanceId': nodeJsInstanceId,
+#         'osType': 'Linux',
+#         'processName': processName
+#       }
+#     }
+#     result = lambdaHandler.handler(payload, None)
+
+#   def testKillProcessByPortNumber(self):
+#     payload = {
+#       'method': 'delete',
+#       'path': '/process',
+#       'body': {
+#         'instanceId': nodeJsInstanceId,
+#         'osType': 'Linux',
+#         'portNumber': nodeJsPortNumber
+#       }
+#     }
+#     result = lambdaHandler.handler(payload, None)
+
+#   def testKillProcessByNameAndPortNumber(self):
+#     payload = {
+#       'method': 'delete',
+#       'path': '/process',
+#       'body': {
+#         'instanceId': nodeJsInstanceId,
+#         'osType': 'Linux',
+#         'processName': processName,
+#         'portNumber': nodeJsPortNumber
+#       }
+#     }
+#     result = lambdaHandler.handler(payload, None)
+    
+#   def testRemovePort(self):
+#     payload = {
+#       'method': 'delete',
+#       'path': '/port',
+#       'body': {
+#         'instanceId': nodeJsInstanceId,
+#         'osType': 'Linux',
+#         'portNumber': nodeJsPortNumber
+#       }
+#     }
+#     result = lambdaHandler.handler(payload, None)
+
+  def testStopServiceWindows(self):
     payload = {
       'method': 'delete',
       'path': '/service',
       'body': {
-        'instanceId': nodeJsInstanceId,
-        'osType': 'Linux',
-        'serviceName': nodeJsServiceName
-      }
-    }
-    result = lambdaHandler.handler(payload, None)
-
-  def testKillProcessByName(self):
-    payload = {
-      'method': 'delete',
-      'path': '/process',
-      'body': {
-        'instanceId': nodeJsInstanceId,
-        'osType': 'Linux',
-        'processName': processName
-      }
-    }
-    result = lambdaHandler.handler(payload, None)
-
-  def testKillProcessByPortNumber(self):
-    payload = {
-      'method': 'delete',
-      'path': '/process',
-      'body': {
-        'instanceId': nodeJsInstanceId,
-        'osType': 'Linux',
-        'portNumber': nodeJsPortNumber
-      }
-    }
-    result = lambdaHandler.handler(payload, None)
-
-  def testKillProcessByNameAndPortNumber(self):
-    payload = {
-      'method': 'delete',
-      'path': '/process',
-      'body': {
-        'instanceId': nodeJsInstanceId,
-        'osType': 'Linux',
-        'processName': processName,
-        'portNumber': nodeJsPortNumber
+        'instanceId': mssqlInstanceId,
+        'osType': 'Win',
+        'serviceName': mssqlServiceName
       }
     }
     result = lambdaHandler.handler(payload, None)
     
-  def testRemovePort(self):
-    payload = {
-      'method': 'delete',
-      'path': '/port',
-      'body': {
-        'instanceId': nodeJsInstanceId,
-        'osType': 'Linux',
-        'portNumber': nodeJsPortNumber
-      }
-    }
-    result = lambdaHandler.handler(payload, None)
-
 def main():
   unittest.main()
 
