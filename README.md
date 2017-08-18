@@ -28,6 +28,96 @@ sudo yum update -y && sudo yum install iptables firewalld -y
 
 # Invocation #
 
+## Describe Instance ##
+* To verify the ssm agent is installed and proper roles are provisioned for Lambda function and for ec2 instance
+```
+aws lambda invoke \
+--invocation-type RequestResponse \
+--function-name smith-poc-chaos-beaver \
+--region us-east-2 \
+--payload '{
+    "method": "get",
+    "path": "/instance/i-0b314f9c31a99621c,i-0b314f9c31a99621c"
+  }' \
+  $(tty)
+```
+
+## Stop Service ##
+```
+aws lambda invoke \
+--invocation-type RequestResponse \
+--function-name smith-poc-chaos-beaver \
+--region us-east-2 \
+--payload '{
+    "method": "delete",
+    "path": "/process",
+    "body": {
+      "instanceId": "i-0b314f9c31a99621c",
+      "osType": "Linux",
+      "processName": "node"
+    }
+  }' \
+  $(tty)
+```
+
+## Kill Process By Name ##
+```
+aws lambda invoke \
+--invocation-type RequestResponse \
+--function-name smith-poc-chaos-beaver \
+--region us-east-2 \
+--payload '{
+    "method": "delete",
+    "path": "/process",
+    "body": {
+      "instanceId": "i-0b314f9c31a99621c",
+      "osType": "Linux",
+      "processName": "node"
+    }
+  }' \
+  $(tty)
+```
+
+## Kill Process By Port ##
+* Note forever-service or other watch process may restart the process right away
+```
+aws lambda invoke \
+--invocation-type RequestResponse \
+--function-name smith-poc-chaos-beaver \
+--region us-east-2 \
+--payload '{
+    "method": "delete",
+    "path": "/process",
+    "body": {
+      "instanceId": "i-0b314f9c31a99621c",
+      "osType": "Linux",
+      "portNumber": 3000
+    }
+  }' \
+  $(tty)
+```
+
+
+## Kill Process By Name and Port ##
+* Note forever-service or other watch process may restart the process right away
+```
+aws lambda invoke \
+--invocation-type RequestResponse \
+--function-name smith-poc-chaos-beaver \
+--region us-east-2 \
+--payload '{
+    "method": "delete",
+    "path": "/process",
+    "body": {
+      "instanceId": "i-0b314f9c31a99621c",
+      "osType": "Linux",
+      "processName": "node",
+      "portNumber": 3000
+    }
+  }' \
+  $(tty)
+```
+
 ## Remove port from firewalld ##
 ```
 aws lambda invoke \

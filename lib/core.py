@@ -1,3 +1,4 @@
+from lib import utils
 from lib import ssm
 
 def killServiceOrProcess(item):
@@ -9,15 +10,17 @@ def killServiceOrProcess(item):
   portNumber = item.get('portNumber')
   
   if (serviceName is not None):
-    ssm.stopService(shellType, [instanceId], serviceName)
+    result = ssm.stopService(shellType, [instanceId], serviceName)
   elif (processName is not None and portNumber is None):
-    ssm.killProcessByName(shellType, [instanceId], processName)
+    result = ssm.killProcessByName(shellType, [instanceId], processName)
   elif (portNumber is not None and processName is None):
-    ssm.killProcessByPortNumber(shellType, [instanceId], portNumber)
+    result = ssm.killProcessByPortNumber(shellType, [instanceId], portNumber)
   elif (processName is not None and portNumber is not None):
-    ssm.killProcessByNameAndPortNumber(shellType, [instanceId], processName, portNumber)
+    result = ssm.killProcessByNameAndPortNumber(shellType, [instanceId], processName, portNumber)
   else:
     raise Exception('serviceName, processName, and portNumber are empty! Sorry, do not know what to kill other than self!')
+
+  return result
     
 def ssmDescribeInstances(instanceIds):
   result = ssm.describeInstances(instanceIds)
