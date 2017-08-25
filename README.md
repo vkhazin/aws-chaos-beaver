@@ -50,11 +50,11 @@ aws lambda invoke \
 --region us-east-2 \
 --payload '{
     "method": "delete",
-    "path": "/process",
+    "path": "/service",
     "body": {
       "instanceId": "i-0b314f9c31a99621c",
       "osType": "Linux",
-      "processName": "node"
+      "serviceName": "nodejs-restart"
     }
   }' \
   $(tty)
