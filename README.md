@@ -166,7 +166,7 @@ aws lambda invoke \
 * For Terraform credentials review ./aws/terraform/providers.tf and/or ./aws/terraform/variables.tf
 * For name prfix review ./aws/terraform/variables.tf
 * From the cloned folder  
-```
-chmod +x ./aws/terraform/deploy.sh
-./aws/terraform/deploy.sh
-```
+  ```
+  chmod +x ./aws/terraform/deploy.sh
+  ./aws/terraform/deploy.sh
+  ```
