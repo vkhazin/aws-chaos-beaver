@@ -159,7 +159,11 @@ aws lambda invoke \
 
 # Deployment #
 
-* Install awscli: ```sudo pip install awscli```
-* Deploy to existing aws lambda function: ```./aws/deploy-lambda```
-* For IAM policies required for ec2 instances and for lamba function see Configuration section of the readme
-
+* git clone https://github.com/vkhazin/aws-chaos-beaver.git --single-branch no-api-gw
+* For Terraform credentials review ./aws/terraform/providers.tf and/or ./aws/terraform/variables.tf
+* For name prfix review ./aws/terraform/variables.tf
+* From the root 
+```
+chmod +x ./aws/terraform/deploy.sh
+./aws/terraform/deploy.sh
+```

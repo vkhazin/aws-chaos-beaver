@@ -1,3 +1,4 @@
 *.pyc
-.terraform/
-.terraform
+aws/terraform/.terraform/
+aws/terraform/.terraform
+aws/terraform/terraform.tfstate*

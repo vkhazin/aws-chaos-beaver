@@ -3,7 +3,7 @@ variable "region" {
 }
 
 variable "aws-credentials" {
-	default = "../.aws/credentials"
+	default = "../../../.aws/credentials"
 }
 
 variable "aws-profile" {
