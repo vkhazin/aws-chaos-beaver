@@ -2,3 +2,5 @@
 aws/terraform/.terraform/
 aws/terraform/.terraform
 aws/terraform/terraform.tfstate*
+aws/terraform
+aws/terraform_0.10.4_linux_amd64.zip
