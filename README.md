@@ -159,7 +159,8 @@ aws lambda invoke \
 
 # Deployment #
 
-* Clone the repo: ```git clone https://github.com/vkhazin/aws-chaos-beaver.git --single-branch -b no-api-gw --depth 1```
+* Clone the repo: 
+  ```git clone https://github.com/vkhazin/aws-chaos-beaver.git --single-branch -b no-api-gw --depth 1```
 * For Terraform credentials review ./aws/terraform/providers.tf and/or ./aws/terraform/variables.tf
 * For name prfix review ./aws/terraform/variables.tf
 * From the cloned folder  
