@@ -87,7 +87,8 @@ def describeInstances(instanceIds):
 
 def removePort(shellType, instanceIds, portNumber):
   if (shellType == ShellType.Linux):
-    command = "firewall-cmd --zone=public --remove-port={portNumber}/tcp".format(portNumber=portNumber)  
+#     command = "firewall-cmd --zone=public --remove-port={portNumber}/tcp".format(portNumber=portNumber)  
+    command = "firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -p tcp --dport={portNumber} -j REJECT".format(portNumber=portNumber) 
   elif (shellType == ShellType.Win):
     raise Exception('Not implemented')
   else:

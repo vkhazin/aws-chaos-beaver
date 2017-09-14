@@ -83,7 +83,7 @@ class ec2Tests(unittest.TestCase):
   def testRemovePort(self):
     try:
       item = {
-        'id': nodeJsInstanceId,
+        'instanceId': nodeJsInstanceId,
         'osType': 'Linux',
         'portNumber': nodeJsPortNumber
       }
@@ -91,6 +91,7 @@ class ec2Tests(unittest.TestCase):
       print(json.dumps(result, default=utils.jsonSerializer))
     except Exception as ex:
       print ex
+      raise
 
 def main():
   unittest.main()
